@@ -69,12 +69,14 @@ struct CardView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 7)
                         .fill(Color("mg_silver").opacity(0.5))
-                    Text("🤍")
+                    Text("❤️")
                         .font(.system(.largeTitle))
                 }
             }
         }.onTapGesture {
-            onTab()
+            withAnimation {
+                onTab()
+            }
         }
     }
 }
