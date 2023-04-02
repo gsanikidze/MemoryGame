@@ -18,15 +18,31 @@ struct ContentView: View {
                     CardView(
                         content: item.content,
                         isFacedUp: item.isFacedUp,
+                        matched: item.matched,
                         onTab: {
-                            vm.choose(item)
+                            if !item.matched {
+                                vm.choose(item)
+                            }
                         }
                     )
-                        .aspectRatio(2/3, contentMode: .fit)
+                    .aspectRatio(2/3, contentMode: .fit)
                 }
             }
             .padding()
             Spacer()
+            HStack {
+                Text("Points: \(vm.point)")
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                if vm.gameOver {
+                    Button(action: vm.restart) {
+                        Text("Restart")
+                            .foregroundColor(.white)
+                    }
+                }
+            }.padding()
         }.background(Color("mg_blue"))
     }
 }
@@ -34,22 +50,28 @@ struct ContentView: View {
 struct CardView: View {
     var content: String
     var isFacedUp: Bool
+    var matched: Bool
     var onTab: () -> Void
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 7)
-                .fill(
-                    Color("mg_cyan")
-                )
+                .fill(Color("mg_cyan"))
             Text(content)
                 .font(.system(.largeTitle))
             
             if !isFacedUp {
                 RoundedRectangle(cornerRadius: 7)
-                    .fill(
-                        Color("mg_silver")
-                    )
+                    .fill(Color("mg_silver"))
+            }
+            
+            if matched {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 7)
+                        .fill(Color("mg_silver").opacity(0.5))
+                    Text("🤍")
+                        .font(.system(.largeTitle))
+                }
             }
         }.onTapGesture {
             onTab()

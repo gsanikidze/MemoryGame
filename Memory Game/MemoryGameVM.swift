@@ -27,7 +27,23 @@ class MemoryGameVM: ObservableObject {
         model.cards
     }
     
+    var matchedCards: [MemoryGameModel<String>.Card] {
+        model.matchedCards
+    }
+    
     func choose(_ card: MemoryGameModel<String>.Card) {
         model.choose(card)
+    }
+    
+    var gameOver: Bool {
+        cards.count == matchedCards.count
+    }
+    
+    var point: Int {
+        matchedCards.count * 10
+    }
+    
+    func restart() {
+        model.restart()
     }
 }
