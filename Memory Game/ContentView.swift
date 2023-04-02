@@ -37,7 +37,11 @@ struct ContentView: View {
                 Spacer()
                 
                 if vm.gameOver {
-                    Button(action: vm.restart) {
+                    Button(action: {
+                        withAnimation {
+                            vm.restart()
+                        }
+                    }) {
                         Text("Restart")
                             .foregroundColor(.white)
                     }

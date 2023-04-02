@@ -44,7 +44,7 @@ struct MemoryGameModel <T> {
     }
     
     mutating func choose(_ card: Card) {
-        if card.matched {
+        if card.matched || matchedCards.count == cards.count {
             return
         }
         
