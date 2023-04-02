@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemoryGameModel <T> {
+struct MemoryGameModel <T> where T: Equatable {
     private(set) var cards: [Card] = []
     
     init(count: Int, createCard: (Int, Int) -> Card) {
@@ -55,7 +55,7 @@ struct MemoryGameModel <T> {
         } else if faceUpCards.count == 1 && !card.isFacedUp {
             let firstCard = faceUpCards[0]
             
-            if firstCard.content as! String == card.content as! String {
+            if firstCard.content == card.content {
                 markAsMatched(card)
                 markAsMatched(firstCard)
             }
